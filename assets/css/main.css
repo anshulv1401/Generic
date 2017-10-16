@@ -448,6 +448,14 @@
 
 		}
 
+/*hidding a button*/
+
+	.hide{
+	height: 0;
+	overflow: hidden;
+	}
+		
+		
 /* Contact */
 
 	#contact {
