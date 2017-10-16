@@ -2,7 +2,8 @@ const CONTENT=document.querySelector(".content");
 const TABS=document.querySelectorAll(".tabs a");
 const NEXTBUTTON=document.querySelector("#nextButton");
 const PREVBUTTON=document.querySelector("#prevButton");
-
+NEXTBUTTON.classList.add("hide");
+PREVBUTTON.classList.add("hide");
 
 sessionStorage.imgDisplayCount=0;//used for loading more images when total images is not displayed on gallery page
 //if make sure that the no. of photos display don't exceeds 12.
@@ -15,9 +16,9 @@ sessionStorage.placeCountstack=[];
 sessionStorage.thingCountstack=[];
 //get the no.s of images for database
 
-const totalPeoples=10;//number of people images
-const totalPlaces=5;//number of places images
-const totalThings=5;//number of things images
+const totalPeoples=4;//number of people images
+const totalPlaces=4;//number of places images
+const totalThings=4;//number of things images
 
 var totalImg=totalPeoples+totalPlaces+totalThings;
 
@@ -78,9 +79,6 @@ function galleryPopulation(noPeople,noPlace,noThing){
 				sessionStorage.imgDisplayCount++;
 				sessionStorage.thingImgCount++;
 			}
-		}
-		if(sessionStorage.imgDisplayCount>=12){
-			break;
 		}
 	}
 }
