@@ -91,11 +91,11 @@ function createImgElement(path,j){
 
 	//adding a tag
 	var innerSection=document.createElement("a");
-	innerSection.setAttribute("href","images/fulls/"+path+"/0"+j+".jpg");
+	innerSection.setAttribute("href","images/gallery_img/"+path+"/0"+j+".jpg");
 
 	//adding img tag
 	var img=document.createElement("img");
-	img.setAttribute("src","images/thumbs/"+path+"/0"+j+".jpg");
+	img.setAttribute("src","images/gallery_img/"+path+"/thumb/0"+j+".jpg");
 
 	img.setAttribute("alt","");
 	img.setAttribute("title","This right here is a "+path+".");//get the titles from database
