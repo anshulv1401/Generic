@@ -3,7 +3,7 @@ const TABS=document.querySelectorAll(".tabs a");
 const NEXTBUTTON=document.querySelector("#nextButton");
 const PREVBUTTON=document.querySelector("#prevButton");
 
-
+//**get number of images dynamically**
 const totalPeoples=13;//number of people images
 const totalPlaces=13;//number of places images
 const totalThings=13;//number of things images
@@ -17,7 +17,7 @@ sessionStorage.setItem('peopleStack',0);
 sessionStorage.setItem('placeStack',0);
 sessionStorage.setItem('thingStack',0);
 
-//since, im this alogritum the stack array stores one ahead of the required info, so to manage that we are using 
+//since, in this alogritum the stack array stores one ahead of the required info, so to manage that we are using 
 // storage key to set stack one step back.
 sessionStorage.sKeyPeo=0;
 sessionStorage.sKeyPla=0;
@@ -141,7 +141,7 @@ function createImgElement(path,j){
 	img.setAttribute("src","images/gallery_img/"+path+"/thumb/0"+j+".jpg");
 
 	img.setAttribute("alt","");
-	img.setAttribute("title","This right here is a "+path+".");//get the titles from database
+	img.setAttribute("title","This right here is a "+path+".");//**get the titles from database**
 
 	innerSection.appendChild(img);
 	divSection.appendChild(innerSection);
@@ -280,18 +280,6 @@ function nextPrevManager(button,e) {
 			sessionStorage.sKeyThi=sessionStorage.thingImgCount;
 
 			galleryAllPopulation();
-
-			// console.log(sessionStorage.sKeyPeo);
-			// console.log(sessionStorage.sKeyPla);
-			// console.log(sessionStorage.sKeyThi);
-
-			// console.log(sessionStorage.peopleImgCount);
-			// console.log(sessionStorage.placeImgCount);
-			// console.log(sessionStorage.thingImgCount);
-
-			// console.log(sessionStorage.peopleStack);
-			// console.log(sessionStorage.placeStack);
-			// console.log(sessionStorage.thingStack);
 			//if tatalImg is equal to sum of all 3 category imgCount then hide NEXT button
 			if(totalImg <= parseInt(sessionStorage.peopleImgCount)+parseInt(sessionStorage.placeImgCount)
 				+parseInt(sessionStorage.thingImgCount)){
