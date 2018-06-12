@@ -3,11 +3,25 @@ const TABS=document.querySelectorAll(".tabs a");
 const NEXTBUTTON=document.querySelector("#nextButton");
 const PREVBUTTON=document.querySelector("#prevButton");
 
-//**get number of images dynamically**
-const totalPeoples=13;//number of people images
-const totalPlaces=13;//number of places images
-const totalThings=13;//number of things images
 
+//geting number of images dynamically from db
+//noOfImages variable is declared in gallery.php file
+var totalPeoples=0;
+var totalPlaces=0;
+var totalThings=0;
+if(noOfImages=='')
+{
+	//default value
+	totalPeoples=14;
+	totalPlaces=12;
+	totalThings=9;
+}
+else
+{
+	totalPeoples=parseInt(noOfImages[1]['noofimages']);//number of people images
+	totalPlaces=parseInt(noOfImages[2]['noofimages']);//number of places images
+	totalThings=parseInt(noOfImages[3]['noofimages']);//number of things images
+}
 sessionStorage.peopleImgCount=0;//used for managing next and prev button
 sessionStorage.placeImgCount=0;
 sessionStorage.thingImgCount=0;
@@ -60,15 +74,28 @@ function galleryAllPopulation(){
 			//using images of people here
 			if(pe<=totalPeoples){
 				let j=pe++;//number of a images, provide acending order till that noPeople
-				createImgElement("people",j);
-				sessionStorage.imgDisplayCount++;
+				if(captionPeople=='')
+				{
+					createImgElement("people",j,'This is a Person');
+				}
+				else
+				{
+					createImgElement("people",j,captionPeople[j-1]['caption']);
+				}sessionStorage.imgDisplayCount++;
 				sessionStorage.peopleImgCount++;
 			}
 		}else if(i%3==2){
 			//using images of places here
 			if(pl<=totalPlaces){
 				let j=pl++;//number of a images
-				createImgElement("place",j);
+				if(captionPlace=='')
+				{
+					createImgElement("place",j,'This is a Place');
+				}
+				else
+				{
+					createImgElement("place",j,captionPlace[j-1]['caption']);
+				}
 				sessionStorage.imgDisplayCount++;
 				sessionStorage.placeImgCount++;
 			}
@@ -77,7 +104,14 @@ function galleryAllPopulation(){
 			//using images of things here
 			if(th<=totalThings){
 				let j=th++;//number of a images
-				createImgElement("thing",j);
+				if(captionThing=='')
+				{
+					createImgElement("thing",j,'This is a Thing');
+				}
+				else
+				{
+					createImgElement("thing",j,captionThing[j-1]['caption']);
+				}
 				sessionStorage.imgDisplayCount++;
 				sessionStorage.thingImgCount++;
 			}
@@ -92,21 +126,32 @@ function galleryOtherPopulation(category){
 	
 	var count = 0;
 	var max=0;
+	var captionArray;
 	if(category=="people"){
 		max=totalPeoples;
 		count = parseInt(sessionStorage.peopleImgCount)+1;
+		captionArray=captionPeople;
 	}else if(category=="place"){
 		max=totalPlaces;
 		count = parseInt(sessionStorage.placeImgCount)+1;
+		captionArray=captionPlace;
 	}else{
 		max=totalThings;
 		count = parseInt(sessionStorage.thingImgCount)+1;
+		captionArray=captionThing;
 	}
 
 	sessionStorage.imgDisplayCount=0;
 	for(var i=1;i<=max;i++){
 		let j=count++;
-		createImgElement(category,j);
+		if(captionArray=='')
+		{
+			createImgElement(category,j,"This is a "+category);
+		}
+		else
+		{
+			createImgElement(category,j,captionArray[j-1]['caption']);
+		}
 		sessionStorage.imgDisplayCount++;
 		if(sessionStorage.imgDisplayCount==12 || (count-1)>=max){
 			break;
@@ -126,7 +171,7 @@ function galleryOtherPopulation(category){
 }
 
 
-function createImgElement(path,j){
+function createImgElement(path,j,caption){
 
 	//adding div tag
 	var divSection=document.createElement("div");
@@ -134,14 +179,14 @@ function createImgElement(path,j){
 
 	//adding a tag
 	var innerSection=document.createElement("a");
-	innerSection.setAttribute("href","images/gallery_img/"+path+"/0"+j+".jpg");
+	innerSection.setAttribute("href","images/gallery_img/"+path+"/"+j+".jpg");
 
 	//adding img tag
 	var img=document.createElement("img");
-	img.setAttribute("src","images/gallery_img/"+path+"/thumb/0"+j+".jpg");
+	img.setAttribute("src","images/gallery_img/"+path+"/thumb/"+j+".jpg");
 
 	img.setAttribute("alt","");
-	img.setAttribute("title","This right here is a "+path+".");//**get the titles from database**
+	img.setAttribute("title",caption);//**get the titles from database**
 
 	innerSection.appendChild(img);
 	divSection.appendChild(innerSection);
