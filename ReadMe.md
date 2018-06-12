@@ -1,0 +1,1 @@
+The purpose of this project is to mantain a photo gallery and arrange photos in different categories
